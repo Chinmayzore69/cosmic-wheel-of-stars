@@ -60,7 +60,7 @@ export function VedicWheel() {
     const point = pointerAngle(event);
     if (point.radius < point.width * 0.09) return;
     event.currentTarget.setPointerCapture(event.pointerId);
-    event.currentTarget.dataset.dragging = "true";
+    event.currentTarget.dataset["dragging"] = "true";
     drag.current = { id: event.pointerId, angle: point.angle, time: event.timeStamp };
   };
   const moveDrag = (event: PointerEvent<SVGSVGElement>) => {
@@ -80,7 +80,7 @@ export function VedicWheel() {
   const endDrag = (event: PointerEvent<SVGSVGElement>) => {
     if (drag.current?.id !== event.pointerId) return;
     drag.current = null;
-    event.currentTarget.dataset.dragging = "false";
+    event.currentTarget.dataset["dragging"] = "false";
     if (event.currentTarget.hasPointerCapture(event.pointerId))
       event.currentTarget.releasePointerCapture(event.pointerId);
   };
