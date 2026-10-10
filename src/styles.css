@@ -241,8 +241,8 @@
     linear-gradient(0deg, var(--background), transparent 19%);
 }
 .hero-copy {
-  width: 610px;
-  max-width: 54%;
+  width: 580px;
+  max-width: 49%;
   padding-block: 65px 82px;
 }
 .eyebrow {
@@ -767,7 +767,7 @@
     font-size: 46px;
   }
   .hero-copy {
-    max-width: 58%;
+    max-width: 49%;
   }
   .hero-actions {
     flex-direction: column;

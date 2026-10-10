@@ -19,7 +19,10 @@ const rashis = [
 const grahas = ["सूर्य", "चन्द्र", "मंगल", "बुध", "गुरु", "शुक्र", "शनि", "राहु", "केतु"];
 const point = (radius: number, degrees: number) => {
   const angle = (degrees * Math.PI) / 180;
-  return { x: 300 + radius * Math.cos(angle), y: 300 + radius * Math.sin(angle) };
+  return {
+    x: Number((300 + radius * Math.cos(angle)).toFixed(4)),
+    y: Number((300 + radius * Math.sin(angle)).toFixed(4)),
+  };
 };
 
 export function VedicWheel() {
@@ -54,8 +57,8 @@ export function VedicWheel() {
           })}
           {rashis.map(([hindi, latin, symbol], i) => {
             const angle = i * 30 - 90;
-            const glyph = point(221, angle);
-            const name = point(200, angle);
+            const glyph = point(230, angle);
+            const name = point(196, angle);
             const start = point(185, angle - 15);
             const end = point(254, angle - 15);
             const dot = point(276, angle);
