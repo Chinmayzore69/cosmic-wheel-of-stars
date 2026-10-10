@@ -64,9 +64,7 @@ export function VedicWheel() {
             const dot = point(276, angle);
             return (
               <g key={latin}>
-                <title>
-                  {latin} — {hindi}
-                </title>
+                <title>{`${latin} — ${hindi}`}</title>
                 <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} className="wheel-ring" />
                 <circle cx={dot.x} cy={dot.y} r="2.4" className="wheel-star" />
                 <text
