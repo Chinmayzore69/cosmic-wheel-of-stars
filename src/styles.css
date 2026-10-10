@@ -191,6 +191,41 @@
   object-position: center;
   z-index: -2;
 }
+.vedic-wheel-scene {
+  position: absolute;
+  width: min(47%, 610px);
+  right: max(24px, calc((100% - 1240px) / 2));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+.vedic-wheel { display: block; width: 100%; aspect-ratio: 1; overflow: visible; }
+.wheel-rotor { transform-origin: 300px 300px; animation: vedic-orbit 160s linear infinite; }
+[data-paused="true"] .wheel-rotor { animation-play-state: paused; }
+.wheel-ring,.wheel-ring-gold,.wheel-petal,.wheel-sacred,.wheel-tick { fill: none; stroke: var(--primary); stroke-width: 0.8; }
+.wheel-ring { stroke: color-mix(in oklab, var(--foreground) 46%, var(--primary)); }
+.wheel-ring-gold { stroke: var(--gold); opacity: 0.7; }
+.wheel-petal { opacity: 0.36; stroke-width: 0.6; }
+.wheel-sacred { stroke: var(--gold); opacity: 0.65; }
+.wheel-tick { stroke: var(--gold); opacity: 0.6; }
+.wheel-star { fill: var(--gold); filter: drop-shadow(0 0 4px var(--gold)); }
+.wheel-glyph { fill: var(--foreground); font-size: 27px; filter: drop-shadow(0 0 7px color-mix(in oklab, var(--primary) 65%, transparent)); }
+.wheel-rashi { fill: var(--gold); font-family: "Noto Sans Devanagari", sans-serif; font-size: 12px; }
+.wheel-graha { fill: var(--muted-foreground); font-family: "Noto Sans Devanagari", sans-serif; font-size: 10px; }
+.wheel-center { fill: var(--background); }
+.wheel-om { fill: var(--gold); font-family: "Noto Sans Devanagari", sans-serif; font-size: 47px; filter: drop-shadow(0 0 12px color-mix(in oklab, var(--gold) 30%, transparent)); }
+.wheel-caption { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--muted-foreground); font-size: 9px; letter-spacing: 2px; }
+.wheel-motion { flex-shrink: 0; }
+@keyframes vedic-orbit { to { transform: rotate(360deg); } }
+@media (max-width: 1023px) and (min-width: 768px) { .vedic-wheel-scene { width: 43%; right: 12px; } }
+@media (max-width: 767px) {
+  .hero { flex-direction: column; min-height: 0 !important; }
+  .hero .hero-copy { padding-block: 45px 20px; }
+  .vedic-wheel-scene { position: relative; order: 2; width: min(100% - 36px, 440px); right: auto; top: auto; transform: none; margin: 0 auto 28px; }
+  .hero .orbit-caption { display: none; }
+  .wheel-caption { font-size: 8px; letter-spacing: 1px; }
+}
+@media (prefers-reduced-motion: reduce) { .wheel-motion { display: none; } }
 .hero::after {
   content: "";
   position: absolute;

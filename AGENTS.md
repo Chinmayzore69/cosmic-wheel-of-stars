@@ -14,3 +14,4 @@
 - Keep deterministic numerology in a browser-safe pure module, separate from interpretations, so calculation results never depend on AI.
 - Do not simulate live AI, account creation, or chart generation; entry points must disclose pending integrations until configured.
 - Use global semantic design tokens and shared button variants for all branded styling so future features inherit the same visual language.
+- Render the Vedic wheel as a separate responsive SVG instrument over the bitmap cosmos so its geometry stays uncropped and rotates independently, with a pause control and reduced-motion support.

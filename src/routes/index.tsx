@@ -25,7 +25,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { KundliEntry, type Entry } from "@/components/kundli-entry";
-import cosmicArt from "@/assets/cosmic-observatory.jpg";
+import cosmicArt from "@/assets/cosmic-background.jpg";
+import { VedicWheel } from "@/components/vedic-wheel";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -169,11 +170,12 @@ function Index() {
           <img
             className="hero-art"
             src={cosmicArt}
-            alt="Luminous zodiac wheel with sacred geometry in a purple star-filled cosmos"
+            alt="Purple star-filled cosmos"
             width={1920}
             height={1088}
             fetchPriority="high"
           />
+          <VedicWheel />
           <div className="site-container">
             <div className="hero-copy">
               <div className="eyebrow">
