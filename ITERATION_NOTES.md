@@ -20,3 +20,9 @@
 
 ## Next milestone
 Review the landing-page design before connecting accounts, storage, chart calculations or live AI.
+
+## Vedic wheel refinement
+- Separated the background cosmos from a fully fitted, independently rotating SVG wheel. Added twelve Devanagari rashi names, nine graha names and central Om, retaining violet and antique-gold lighting.
+- Gentle 160-second rotation with pause/play and reduced-motion support. Wheel stays below text on phones and beside it on larger screens.
+- Verified rotation advances, pause stops it, twelve rashis and nine grahas render, reduced-motion disables animation, and six phone/landscape/tablet/desktop sizes show no overflow, cropping or text overlap.
+- Fixed cross-runtime coordinate precision and SVG title hydration mismatches; final browser run recorded no runtime errors. Preview build reports build OK.
