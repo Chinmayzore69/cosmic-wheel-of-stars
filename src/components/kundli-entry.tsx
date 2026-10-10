@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Copy, Orbit, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -22,6 +22,7 @@ const meanings: Record<number, [string, string]> = {
 };
 
 export function KundliEntry({ entry, onChange }: { entry: Entry; onChange: (entry: Entry) => void }) {
+  const returnFocus = useRef<HTMLElement | null>(null);
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [error, setError] = useState("");
@@ -37,7 +38,7 @@ export function KundliEntry({ entry, onChange }: { entry: Entry; onChange: (entr
     try { setResult(calculateNumbers(date)); setError(""); } catch (err) { setError(err instanceof Error ? err.message : "Please check your details."); }
   };
   return <Dialog open={entry !== null} onOpenChange={(open) => { if (!open) onChange(null); }}>
-    <DialogContent onInteractOutside={(event) => { if (entry === "numerology" && (name || date)) event.preventDefault(); }}>
+    <DialogContent onOpenAutoFocus={() => { const active = document.activeElement; returnFocus.current = active instanceof HTMLElement ? active : null; }} onCloseAutoFocus={(event) => { event.preventDefault(); returnFocus.current?.focus(); }} onInteractOutside={(event) => { if (entry === "numerology" && (name || date)) event.preventDefault(); }}>
       <div className="tool-icon mb-2"><Orbit /></div>
       <DialogHeader><DialogTitle className="pr-4 font-display text-2xl leading-snug">{entry ? titles[entry] : "Kundli AI"}</DialogTitle><DialogDescription>{entry === "numerology" ? "A little self-discovery, rooted in traditional numerology." : "Explore at your own pace, with clarity and care."}</DialogDescription></DialogHeader>
       {entry === "numerology" && !result && <form onSubmit={submit} noValidate>
