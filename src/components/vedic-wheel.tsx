@@ -19,7 +19,9 @@ export function VedicWheel() {
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => { motion.current.reduced = preference.matches; };
+    const updatePreference = () => {
+      motion.current.reduced = preference.matches;
+    };
     updatePreference();
     preference.addEventListener("change", updatePreference);
     let frame = 0;
@@ -47,7 +49,11 @@ export function VedicWheel() {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left - rect.width / 2;
     const y = event.clientY - rect.top - rect.height / 2;
-    return { angle: Math.atan2(y, x) * 180 / Math.PI, radius: Math.hypot(x, y), width: rect.width };
+    return {
+      angle: (Math.atan2(y, x) * 180) / Math.PI,
+      radius: Math.hypot(x, y),
+      width: rect.width,
+    };
   };
   const startDrag = (event: PointerEvent<SVGSVGElement>) => {
     if (event.button !== 0 || drag.current) return;
@@ -64,7 +70,10 @@ export function VedicWheel() {
     if (point.radius < point.width * 0.09) return;
     const delta = angularDelta(active.angle, point.angle);
     motion.current.angle += delta;
-    motion.current.speed = Math.max(-50, Math.min(50, delta / Math.max((event.timeStamp - active.time) / 1000, 0.016)));
+    motion.current.speed = Math.max(
+      -50,
+      Math.min(50, delta / Math.max((event.timeStamp - active.time) / 1000, 0.016)),
+    );
     rotor.current?.setAttribute("transform", `rotate(${motion.current.angle} 300 300)`);
     drag.current = { id: event.pointerId, angle: point.angle, time: event.timeStamp };
   };
@@ -72,7 +81,8 @@ export function VedicWheel() {
     if (drag.current?.id !== event.pointerId) return;
     drag.current = null;
     event.currentTarget.dataset.dragging = "false";
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    if (event.currentTarget.hasPointerCapture(event.pointerId))
+      event.currentTarget.releasePointerCapture(event.pointerId);
   };
   return (
     <div className="vedic-wheel-scene" data-paused={paused}>
