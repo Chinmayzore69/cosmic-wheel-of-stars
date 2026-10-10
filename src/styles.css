@@ -56,6 +56,10 @@
   );
   --shadow-glow: 0 0 24px oklch(0.6 0.24 297 / 0.24), inset 0 1px 0 oklch(0.86 0.06 296 / 0.15);
   --shadow-card: 0 12px 40px oklch(0.06 0.02 296 / 0.25);
+  --wheel-violet: oklch(0.78 0.19 300);
+  --wheel-pink: oklch(0.8 0.19 340);
+  --wheel-glow: drop-shadow(0 0 3px var(--primary))
+    drop-shadow(0 0 12px color-mix(in oklab, var(--primary) 45%, transparent));
 }
 @layer base {
   * {
@@ -193,39 +197,144 @@
 }
 .vedic-wheel-scene {
   position: absolute;
-  width: min(47%, 610px);
-  right: max(24px, calc((100% - 1240px) / 2));
+  width: min(51%, 680px);
+  right: max(8px, calc((100% - 1320px) / 2));
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
 }
-.vedic-wheel { display: block; width: 100%; aspect-ratio: 1; overflow: visible; }
-.wheel-rotor { transform-origin: 300px 300px; animation: vedic-orbit 160s linear infinite; }
-[data-paused="true"] .wheel-rotor { animation-play-state: paused; }
-.wheel-ring,.wheel-ring-gold,.wheel-petal,.wheel-sacred,.wheel-tick { fill: none; stroke: var(--primary); stroke-width: 0.8; }
-.wheel-ring { stroke: color-mix(in oklab, var(--foreground) 46%, var(--primary)); }
-.wheel-ring-gold { stroke: var(--gold); opacity: 0.7; }
-.wheel-petal { opacity: 0.36; stroke-width: 0.6; }
-.wheel-sacred { stroke: var(--gold); opacity: 0.65; }
-.wheel-tick { stroke: var(--gold); opacity: 0.6; }
-.wheel-star { fill: var(--gold); filter: drop-shadow(0 0 4px var(--gold)); }
-.wheel-glyph { fill: var(--foreground); font-size: 27px; filter: drop-shadow(0 0 7px color-mix(in oklab, var(--primary) 65%, transparent)); }
-.wheel-rashi { fill: var(--gold); font-family: "Noto Sans Devanagari", sans-serif; font-size: 12px; }
-.wheel-graha { fill: var(--muted-foreground); font-family: "Noto Sans Devanagari", sans-serif; font-size: 10px; }
-.wheel-center { fill: var(--background); }
-.wheel-om { fill: var(--gold); font-family: "Noto Sans Devanagari", sans-serif; font-size: 47px; filter: drop-shadow(0 0 12px color-mix(in oklab, var(--gold) 30%, transparent)); }
-.wheel-caption { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--muted-foreground); font-size: 9px; letter-spacing: 2px; }
-.wheel-motion { flex-shrink: 0; }
-@keyframes vedic-orbit { to { transform: rotate(360deg); } }
-@media (max-width: 1023px) and (min-width: 768px) { .vedic-wheel-scene { width: 43%; right: 12px; } }
-@media (max-width: 767px) {
-  .hero { flex-direction: column; min-height: 0 !important; }
-  .hero .hero-copy { padding-block: 45px 20px; }
-  .vedic-wheel-scene { position: relative; order: 2; width: min(100% - 36px, 440px); right: auto; top: auto; transform: none; margin: 0 auto 28px; }
-  .hero .orbit-caption { display: none; }
-  .wheel-caption { font-size: 8px; letter-spacing: 1px; }
+.vedic-wheel {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: visible;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
 }
-@media (prefers-reduced-motion: reduce) { .wheel-motion { display: none; } }
+.vedic-wheel[data-dragging="true"] {
+  cursor: grabbing;
+}
+.wheel-rotor {
+  filter: var(--wheel-glow);
+}
+.wheel-ring,
+.wheel-ring-gold,
+.wheel-petal,
+.wheel-sacred,
+.wheel-tick {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 0.8;
+}
+.wheel-ring {
+  stroke: var(--wheel-violet);
+  stroke-width: 1.1;
+}
+.wheel-ring-gold {
+  stroke: var(--cyan);
+  opacity: 0.9;
+  stroke-width: 1.3;
+}
+.wheel-petal {
+  stroke: var(--wheel-pink);
+  opacity: 0.5;
+  stroke-width: 0.8;
+}
+.wheel-sacred {
+  stroke: var(--wheel-violet);
+  opacity: 0.85;
+}
+.wheel-tick {
+  stroke: var(--cyan);
+  opacity: 0.7;
+}
+.wheel-star {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 4px var(--cyan));
+}
+.wheel-sign-0 {
+  --sign-color: var(--cyan);
+}
+.wheel-sign-1 {
+  --sign-color: var(--wheel-pink);
+}
+.wheel-sign-2 {
+  --sign-color: var(--wheel-violet);
+}
+.wheel-glyph {
+  fill: var(--sign-color);
+  font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif;
+  font-size: 30px;
+  filter: drop-shadow(0 0 5px var(--sign-color));
+}
+.wheel-rashi {
+  fill: var(--sign-color);
+  font-family: "Noto Sans Devanagari", sans-serif;
+  font-size: 13px;
+}
+.wheel-graha {
+  fill: var(--foreground);
+  font-family: "Noto Sans Devanagari", sans-serif;
+  font-size: 10px;
+}
+.wheel-center {
+  fill: var(--background);
+}
+.wheel-om {
+  fill: var(--wheel-pink);
+  font-family: "Noto Sans Devanagari", sans-serif;
+  font-size: 47px;
+  filter: drop-shadow(0 0 10px var(--primary));
+}
+.wheel-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted-foreground);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+.wheel-motion {
+  flex-shrink: 0;
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+  .vedic-wheel-scene {
+    width: 49%;
+    right: 4px;
+  }
+}
+@media (max-width: 767px) {
+  .hero {
+    flex-direction: column;
+    min-height: 0 !important;
+  }
+  .hero .hero-copy {
+    padding-block: 45px 20px;
+  }
+  .vedic-wheel-scene {
+    position: relative;
+    order: 2;
+    width: min(100% - 16px, 490px);
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 0 auto 28px;
+  }
+  .hero .orbit-caption {
+    display: none;
+  }
+  .wheel-caption {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wheel-motion {
+    display: none;
+  }
+}
 .hero::after {
   content: "";
   position: absolute;

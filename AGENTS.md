@@ -15,3 +15,4 @@
 - Do not simulate live AI, account creation, or chart generation; entry points must disclose pending integrations until configured.
 - Use global semantic design tokens and shared button variants for all branded styling so future features inherit the same visual language.
 - Render the Vedic wheel as a separate responsive SVG instrument over the bitmap cosmos so its geometry stays uncropped and rotates independently, with a pause control and reduced-motion support.
+- Drive wheel rotation through one animation-frame loop and pointer capture with signed angular deltas so automatic motion and bidirectional mouse/touch dragging share a continuous angle without React updates on every frame.
